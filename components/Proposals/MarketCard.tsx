@@ -14,9 +14,10 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
+import { OpenBookV2Client } from '@openbook-dex/openbook-v2';
 import numeral from 'numeral';
 import { IconQuestionMark } from '@tabler/icons-react';
-import { NUMERAL_FORMAT } from '@/lib/constants';
+import { NUMERAL_FORMAT, OPENBOOK_PROGRAM_ID } from '@/lib/constants';
 import { useProposal } from '../../hooks/useProposal';
 import { Token, useTokens } from '../../hooks/useTokens';
 import { useTokenAmount } from '../../hooks/useTokenAmount';
@@ -25,9 +26,11 @@ import { useTokenMint } from '../../hooks/useTokenMint';
 import { useTransactionSender } from '../../hooks/useTransactionSender';
 import { useAutocrat } from '../../contexts/AutocratContext';
 import { getParsedOrders } from '@/lib/openbook';
+import { useProvider } from '../../hooks/useProvider';
 
 export function MarketCard({ proposal: fromProposal }: { proposal: ProposalAccountWithKey }) {
   const { daoTreasury } = useAutocrat();
+  const provider = useProvider();
   const { proposal, markets, mintTokensTransactions, placeOrderTransactions, fetchMarkets } =
     useProposal({
       fromProposal,
@@ -52,6 +55,14 @@ export function MarketCard({ proposal: fromProposal }: { proposal: ProposalAccou
       setSelectedToken(tokens?.meta);
     }
   }, [selectedToken, tokens]);
+
+  useEffect(() => {
+    if (!provider || !proposal) return;
+    const client = new OpenBookV2Client(provider, OPENBOOK_PROGRAM_ID);
+    client.getMarket(proposal.account.openbookPassMarket).then((res) => {
+      console.log(res);
+    });
+  }, [provider, proposal]);
 
   const totalSupply =
     numeral(mint?.supply || 0)
