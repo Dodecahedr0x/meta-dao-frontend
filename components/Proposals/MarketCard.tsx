@@ -59,7 +59,7 @@ export function MarketCard({ proposal: fromProposal }: { proposal: ProposalAccou
   useEffect(() => {
     if (!provider || !proposal) return;
     const client = new OpenBookV2Client(provider, OPENBOOK_PROGRAM_ID);
-    client.getMarket(proposal.account.openbookPassMarket).then((res) => {
+    client.getMarketAccount(proposal.account.openbookPassMarket).then((res) => {
       console.log(res);
     });
   }, [provider, proposal]);
