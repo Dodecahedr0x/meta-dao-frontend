@@ -30,15 +30,9 @@ const variantColorResolver: VariantColorsResolver = (input: VariantColorsResolve
     theme: input.theme,
   });
 
-  const gray = parseThemeColor({ color: '#AAA', theme: input.theme, colorScheme: 'dark' });
-
-  if (input.variant === 'secondary') {
-    return {
-      background: rgba(gray.color, 0.1),
-      hover: rgba(gray.color, 0.15),
-      border: '',
-      color: darken(gray.value, 0.1),
-    };
+  // Override some properties for variant
+  if (parsedColor.isThemeColor && parsedColor.color === 'lime' && input.variant === 'filled') {
+    return { ...defaultResolvedColors, color: 'var(--mantine-color-black)' };
   }
 
   // Completely override variant
@@ -46,8 +40,8 @@ const variantColorResolver: VariantColorsResolver = (input: VariantColorsResolve
     return {
       background: rgba(parsedColor.value, 0.1),
       hover: rgba(parsedColor.value, 0.15),
-      border: `${rem(1)} solid ${defaultResolvedColors.color}`,
-      color: darken(defaultResolvedColors.color, 0.8),
+      border: `${rem(1)} solid ${parsedColor.value}`,
+      color: darken(parsedColor.value, 0.1),
     };
   }
 
@@ -66,7 +60,6 @@ const variantColorResolver: VariantColorsResolver = (input: VariantColorsResolve
 
 export const theme = createTheme({
   variantColorResolver,
-  primaryColor: 'red',
   components: {
     Container: Container.extend({
       vars: (_, { size, fluid }) => ({

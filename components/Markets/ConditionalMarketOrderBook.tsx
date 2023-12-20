@@ -28,7 +28,6 @@ export function ConditionalMarketOrderBook({
           font-family: -apple-system, BlinkMacSystemFont, sans-serif;
           font-size: 15px;
           font-variant-numeric: tabular-nums;
-          width: 100%;
           display: inline-block;
         }
         .MakeItNice__side--bids, .MakeItNice__side--asks {
@@ -54,11 +53,7 @@ export function ConditionalMarketOrderBook({
         }
 
         .MakeItNice__list-item:hover {
-          background: rgba(200, 200, 200, 0.2);
-        }
-
-        .MakeItNice__list-item span {
-          flex: 1;
+          background: rgb(240, 240, 240);
         }
 
         .MakeItNice__price {
@@ -82,19 +77,16 @@ export function ConditionalMarketOrderBook({
           display: flex;
         }
 
-
         .MakeItNice__spread-header {
           margin: 0 15px 0 0;
           flex: 0 0 70px;
           text-align: right;
-          flex: 1;
         }
 
         .MakeItNice__spread-value {
           width: 100%;
           text-align: left;
           overflow: hidden;
-          flex: 1;
         }
       `,
         }}

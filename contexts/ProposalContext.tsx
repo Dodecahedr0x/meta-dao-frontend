@@ -11,7 +11,6 @@ import {
   Markets,
   OpenOrdersAccountWithKey,
   OrderBook,
-  Proposal,
   ProposalAccountWithKey,
   LeafNode,
 } from '@/lib/types';
@@ -23,7 +22,7 @@ import { getLeafNodes } from '../lib/openbook';
 import { debounce } from '../lib/utils';
 
 export interface ProposalInterface {
-  proposal?: Proposal;
+  proposal?: ProposalAccountWithKey;
   proposalNumber?: number;
   markets?: Markets;
   orders?: OpenOrdersAccountWithKey[];
@@ -100,7 +99,7 @@ export function ProposalProvider({
   const [isCranking, setIsCranking] = useState<boolean>(false);
   const { crankMarketTransactions } = useOpenbookTwap();
 
-  const proposal = useMemo<Proposal | undefined>(
+  const proposal = useMemo<ProposalAccountWithKey | undefined>(
     () =>
       proposals?.filter(
         (t) =>
@@ -257,7 +256,7 @@ export function ProposalProvider({
       try {
         metaBalance = await connection.getTokenAccountBalance(metaTokenAccount);
       } catch (err) {
-        console.error('unable to fetch balance for META token account');
+        console.log('unable to fetch balance for META token account');
       }
       try {
         if (fromBase) {
@@ -267,7 +266,7 @@ export function ProposalProvider({
         }
       } catch (err) {
         error = true;
-        console.error("turns out the account doesn't exist we can create it");
+        console.log("turns out the account doesn't exist we can create it");
       }
       if (!error) {
         notifications.show({

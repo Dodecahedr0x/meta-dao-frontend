@@ -4,7 +4,6 @@ import { Providers } from '../components/Providers/Providers';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import '@mantine/core/styles.css';
 import ogImage from '@/public/ogImage.png';
-import './globals.css';
 
 export const metadata = {
   title: 'Futarchy - MetaDAO',

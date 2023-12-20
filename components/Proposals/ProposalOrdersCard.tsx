@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Loader, Stack, Tabs, Text } from '@mantine/core';
+import { ActionIcon, Flex, Group, Loader, Stack, Tabs, Text } from '@mantine/core';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { IconRefresh } from '@tabler/icons-react';
 import { useProposal } from '@/contexts/ProposalContext';
@@ -26,7 +26,7 @@ export function ProposalOrdersCard() {
     </Group>
   ) : (
     <>
-      <Stack justify="space-between">
+      <Group justify="space-between" align="center">
         <Group>
           <Text fw="bolder" size="xl">
             Orders
@@ -39,27 +39,24 @@ export function ProposalOrdersCard() {
             <IconRefresh />
           </ActionIcon>
         </Group>
-        <Stack justify="start" align="start">
-          <Group>
-            <Text size="lg">
-              <Text span fw="bold">
+        <Flex justify="flex-end" align="flex-end" direction="row" wrap="wrap">
+          <Stack gap={0} align="center" justify="flex-end">
+            <Group>
+              <Text size="xl" fw="bold">
                 ${totalUsdcInOrder(orders)}
-              </Text>{' '}
-              condUSDC
+              </Text>
+              <Text size="md">condUSDC</Text>|
+              <Text size="xl" fw="bold">
+                {totalMetaInOrder(orders)}
+              </Text>
+              <Text size="md">condMETA</Text>
+            </Group>
+            <Text fw="bolder" size="xl">
+              (${totalInOrder(orders)}) Total
             </Text>
-            <Text>|</Text>
-            <Text size="lg">
-              <Text span fw="bold">
-                ${totalMetaInOrder(orders)}
-              </Text>{' '}
-              condMETA
-            </Text>
-          </Group>
-          <Text fw="bolder" size="md">
-            for a total value of ${totalInOrder(orders)}
-          </Text>
-        </Stack>
-      </Stack>
+          </Stack>
+        </Flex>
+      </Group>
       <Tabs defaultValue="open">
         <Tabs.List>
           <Tabs.Tab value="open">Open</Tabs.Tab>

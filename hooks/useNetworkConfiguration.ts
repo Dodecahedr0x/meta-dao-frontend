@@ -13,15 +13,13 @@ export function useNetworkConfiguration() {
   const [network, setNetwork] = useLocalStorage<Networks>({
     key: 'meta-dao-network-configuration',
     defaultValue: Networks.Mainnet,
-    getInitialValueInEffect: false,
+    getInitialValueInEffect: true,
   });
-
   const [customEndpoint, setCustomEndpoint] = useLocalStorage<string>({
     key: 'futarchy-custom-endpoint',
     defaultValue: 'https://sudden-jocelyn-fast-mainnet.helius-rpc.com/',
     getInitialValueInEffect: true,
   });
-
   const endpoint = useMemo(() => {
     switch (network) {
       case Networks.Mainnet:
