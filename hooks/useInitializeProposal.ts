@@ -84,6 +84,7 @@ export function useInitializeProposal() {
         openbookTwapPassMarket,
         { confFilter: 0.1, maxStalenessSlots: 100 },
         openbookPassMarketKP,
+        daoTreasury,
       );
 
       const openbookFailMarket = await createOpenbookMarket(
@@ -104,6 +105,7 @@ export function useInitializeProposal() {
         openbookTwapFailMarket,
         { confFilter: 0.1, maxStalenessSlots: 100 },
         openbookFailMarketKP,
+        daoTreasury,
       );
 
       const passMarketTx = new Transaction().add(...openbookPassMarket.instructions);
